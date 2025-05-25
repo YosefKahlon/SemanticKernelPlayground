@@ -1,0 +1,5 @@
+{{commits}}
+
+Write professional release notes based on the list of git commits above.
+Use markdown formatting.
+Group changes into categories like Features, Bug Fixes, and Improvements if possible.

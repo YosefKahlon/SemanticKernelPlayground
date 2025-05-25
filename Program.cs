@@ -2,6 +2,7 @@
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.AzureOpenAI;
+using SemanticKernelPlayground.Plugins;
 
 var configuration = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -15,6 +16,9 @@ var apiKey = configuration["ApiKey"] ?? throw new ApplicationException("ApiKey n
 var builder = Kernel.CreateBuilder()
     .AddAzureOpenAIChatCompletion(modelName, endpoint, apiKey);
 
+builder.Plugins.AddFromType<GitPlugin>();
+builder.Plugins.AddFromPromptDirectory("Plugins/PromptPlugins");
+
 var kernel = builder.Build();
 
 var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
@@ -22,6 +26,7 @@ var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
 AzureOpenAIPromptExecutionSettings openAiPromptExecutionSettings = new()
 {
     FunctionChoiceBehavior = FunctionChoiceBehavior.Auto()
+
 };
 
 var history = new ChatHistory();
@@ -64,5 +69,3 @@ do
 
 
 } while (true);
-
-
