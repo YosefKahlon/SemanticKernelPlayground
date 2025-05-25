@@ -14,7 +14,7 @@ A .NET 9 console application that implements a chat interface using Microsoft's 
 
 - [.NET 9 SDK](https://dotnet.microsoft.com/download)
 - Azure OpenAI resource and API key
-- (Optional) [LibGit2Sharp](https://github.com/libgit2/libgit2sharp) native dependencies for Git features
+
 
 ## Setup
 
