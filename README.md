@@ -69,5 +69,4 @@ This application now supports RAG, enabling the AI to answer questions grounded 
 - **GitPlugin**: Provides Git integration features (unrelated to RAG, but works alongside).
 - **PromptPlugins**: Contains prompt templates for tasks like release notes generation.
 - **DocumentationChunk**: Represents a chunk of documentation/code, with metadata (file, index, content).
-- **TextSearchResult**: (If used) Represents the result of a semantic search, including the matched chunk and similarity score.
 - **CodeChunker**: Splits code files into logical chunks (by class/method) for
