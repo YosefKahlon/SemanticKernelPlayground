@@ -7,6 +7,7 @@ using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.AzureOpenAI;
 using Microsoft.SemanticKernel.Data;
 using Microsoft.SemanticKernel.Embeddings;
+using SemanticKernelPlayground.Model;
 using SemanticKernelPlayground.Plugins;
 
 #pragma warning disable SKEXP0010 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
@@ -38,7 +39,7 @@ var kernel = builder.Build();
 
 // [DEBUG] Generate documentation chunks for the codebase
 var logger = kernel.GetRequiredService<ILogger<DocumentationPlugin>>();
-var docPlugin = new DocumentationPlugin(logger);
+var docPlugin = new DocumentationPlugin();
 var projectRoot = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../"));
 var docs = docPlugin.GenerateDocumentation(projectRoot);
 Console.WriteLine($"[DEBUG] Generated {docs.Count} documentation chunks.");

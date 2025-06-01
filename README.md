@@ -9,12 +9,12 @@ A .NET 9 console application that implements a chat interface using Microsoft's 
 - Conversation history management
 - Git repository integration (view commits, manage versions, commit and push changes)
 - Generate professional release notes from commit history using prompt plugins
+- **Retrieval-Augmented Generation (RAG) support for code/documentation Q&A**
 
 ## Prerequisites
 
 - [.NET 9 SDK](https://dotnet.microsoft.com/download)
 - Azure OpenAI resource and API key
-
 
 ## Setup
 
@@ -26,7 +26,6 @@ A .NET 9 console application that implements a chat interface using Microsoft's 
      "ApiKey": "your-azure-openai-api-key"
    }
    ```
-
 
 ## Usage
 
@@ -52,4 +51,23 @@ You can use the following commands in the chat to interact with Git repositories
 
 ---
 
-**Note:** For best results, ensure your working directory is set to the project root when running the application.
+## Retrieval-Augmented Generation (RAG)
+
+This application now supports RAG, enabling the AI to answer questions grounded in your codebase and documentation:
+
+- **Vector Store**: Documentation and code are split into chunks (using `CodeChunker`), embedded as vectors (using `TextEmbeddingGenerator`), and stored in a vector collection for fast semantic search.
+- **Semantic Search**: When you ask a question, the app retrieves relevant documentation/code chunks from the vector store using semantic similarity.
+- **Cited Answers**: The AI generates answers based on retrieved chunks and cites sources (file and chunk index) for transparency.
+
+### Key Components
+
+- **Vector Store**: Stores vector embeddings of documentation/code chunks for efficient similarity search.
+- **TextEmbeddingGenerator**: Converts text chunks into vector embeddings using Azure OpenAI.
+- **Collection**: The logical grouping of all vectorized documentation/code chunks.
+- **SemanticKernel**: Orchestrates the AI, plugins, and RAG workflow.
+- **DocumentationPlugin**: Handles ingestion, chunking, embedding, and retrieval of documentation/code for RAG.
+- **GitPlugin**: Provides Git integration features (unrelated to RAG, but works alongside).
+- **PromptPlugins**: Contains prompt templates for tasks like release notes generation.
+- **DocumentationChunk**: Represents a chunk of documentation/code, with metadata (file, index, content).
+- **TextSearchResult**: (If used) Represents the result of a semantic search, including the matched chunk and similarity score.
+- **CodeChunker**: Splits code files into logical chunks (by class/method) for
